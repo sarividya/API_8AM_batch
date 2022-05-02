@@ -1,0 +1,6 @@
+curl --location --request POST 'https://reqres.in/api/users' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "Lisa",
+    "job": "leader"
+}'

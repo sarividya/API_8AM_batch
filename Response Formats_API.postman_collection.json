@@ -1,0 +1,170 @@
+{
+	"info": {
+		"_postman_id": "dbd70de9-b5f8-4573-bf36-01099b9b20c1",
+		"name": "Response Formats_API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "xml_API",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"verify if  Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verify if body is presentin the Response\", function () {\r",
+							"    pm.response.to.have.body();\r",
+							"});\r",
+							"\r",
+							"responseExtracted = pm.response.text();\r",
+							"var count1 = (responseExtracted.match(/title/g) || []).length;\r",
+							"console.log(count1);\r",
+							"\r",
+							"let moment = require(\"moment\")\r",
+							"console.log(moment.utc().local().format(\"MM/DD/YY, HH:mm A\"))\r",
+							"console.log(moment.utc().local().format(\"YYYY-MM-DD\"))\r",
+							"\r",
+							"pm.test(\"Verify if createdAt includes current date\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(moment.utc().local().format(\"YYYY-MM-DD\"));\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{$randomProtocol}}://httpbin.org/xml",
+					"protocol": "{{$randomProtocol}}",
+					"host": [
+						"httpbin",
+						"org"
+					],
+					"path": [
+						"xml"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "txt_API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://httpbin.org/robots.txt",
+					"protocol": "http",
+					"host": [
+						"httpbin",
+						"org"
+					],
+					"path": [
+						"robots.txt"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "gzip_API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://httpbin.org/gzip",
+					"protocol": "http",
+					"host": [
+						"httpbin",
+						"org"
+					],
+					"path": [
+						"gzip"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "json_API",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify if date = date of publication\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.slideshow.date).to.eql(\"date of publication\");\r",
+							"});\r",
+							"pm.test(\"Verify if title = Wake up to WonderWidgets\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.slideshow.slides[0].title).to.eql(\"Wake up to WonderWidgets!\");\r",
+							"});\r",
+							"pm.test(\"Verify if slideshow.title = Sample Slide Show\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.slideshow.title).to.eql(\"Sample Slide Show\");\r",
+							"});\r",
+							"pm.test(\"Verify if slideshow.slides.items[0] = Why <em>WonderWidgets</em> are great,\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.slideshow.slides[0].items).to.eql(\"Why <em>WonderWidgets</em> are great\");\r",
+							"    //pm.expect(jsonData.slideshow.slides.items).to.eql(\"Who <em>buys</em> WonderWidgets\");\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://httpbin.org/json",
+					"protocol": "http",
+					"host": [
+						"httpbin",
+						"org"
+					],
+					"path": [
+						"json"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "html_API",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://httpbin.org/html",
+					"protocol": "http",
+					"host": [
+						"httpbin",
+						"org"
+					],
+					"path": [
+						"html"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
